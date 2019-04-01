@@ -1,0 +1,54 @@
+body {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 10px;
+    text-align: center
+}
+
+h1 {
+    text-transform: uppercase;
+    
+}
+
+input {
+    background-color: white; 
+    border: olive 2px solid;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    opacity: 1
+}
+
+#submit-btn {
+    background-color: olive; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    opacity: 1
+}
+
+.interact button {
+    background-color: olive; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    opacity: 1
+}
+
+button:hover {
+    opacity: 0.6
+}
+
+#submit-btn:hover {
+    opacity: 0.6
+}

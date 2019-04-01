@@ -19,51 +19,117 @@ let hunger = 0;
 let sleepiness = 0;
 let boredom = 0;
 let age = 0;
+
 // Display the following metrics for your pet:
-$(`.pet-space`).append(`<p>Hunger: ${hunger}/10</p> `);
-$(`.pet-space`).append(`<p>Sleepiness: ${sleepiness}/10<p> `);
-$(`.pet-space`).append(`<p>Boredom: ${boredom}/10</p> `);
-$(`.pet-space`).append(`<p>Age: ${age}/???</p>`)
-
-// Add buttons to the screen to feed your pet, turn off the lights, and play with your pet.
+$(`.hunger`).text(`${hunger}`);
+$(`.sleepiness`).text(`${sleepiness}`);
+$(`.boredom`).text(`${boredom}`);
+$(`.age`).text(`${age}`);
 
 
+$('.feed').on('click', () => {
+    console.log("clicked feed");
+    hunger--;
+    $(`.hunger`).text(`${hunger}`);
+    });
 
-// Add the ability to name your pet.
-$('#submit-btn').on('submit', () => {
+ $('.lights').on('click', () => {
+    console.log("clicked lights");
+    sleepiness--;
+    $(`body`).css("background-color: black");
+    $(`.sleepiness`).text(`${sleepiness}`);
+
+    });
+
+$('.play').on('click', () => {
+    console.log("clicked play");
+    boredom--;
+    $(`.boredom`).text(`${boredom}`);
+    });
+
+// NAME YOUR PET
+$('#submit-btn').on('click', () => {
 console.log("clicked");
    const inputValue = $('#input-name').val();
-   $('.pet-space').prepend(`<h1>NAME: ${inputValue}</h1>`);
-
+   $('.pet-name').text('');
+   $('.pet-name').append(`<h1>${inputValue}</h1>`);
+  
 });
-
-// Style the page.
-
-
 
 // Increase your pet's age every x minutes
 let timePassing; 
 let seconds = 0;
-let minutes = 0;
 
 const secondsGoUp = () => {
     seconds++;
     $('.seconds').text(seconds)
-    if(seconds % 60 === 0){
-        minutes++;
-        $('.minutes').text(minutes);
-    }
+    applyHunger();
+    applySleepiness();
+    applyBoredom();
+    applyAge();
 };
 
+
+// PET NEED FUNCTIONS
+const applyHunger = () => {
+    if(seconds % 10 === 0){
+        hunger++;
+        $('.hunger').text(hunger);
+        if (hunger >= 10){
+            alert("Died of hunger!");
+            clearInterval(timePassing);
+        };
+    };
+};
+
+const applySleepiness = () => {
+    if (seconds % 7 === 0){
+        sleepiness++;
+        $(`.sleepiness`).text(`${sleepiness}`);
+        if (sleepiness >= 10){
+            alert("Died of exhaustion!");
+            clearInterval(timePassing);
+        };
+    };
+};
+
+const applyBoredom = () => {
+    if (seconds % 5 === 0) {
+        boredom++;
+        $(`.boredom`).text(`${boredom}`);
+        if (boredom >= 10){
+            alert("Died of boredom!");
+            clearInterval(timePassing);
+        };
+    };
+};
+
+const applyAge = () => {
+    if (seconds % 20 === 0) {
+        age++;
+        $(`.age`).text(`${age}`);
+        if (hunger >= 10){
+            alert("Died of old age!");
+            clearInterval(timePassing);
+        };
+    };
+}
+
+// TIME-RELATED FUNCTIONS
+
+
 $('.start').click(function(){
-    timePassing = setInterval(secondsGoUp, 1000);
+    timePassing = setInterval(secondsGoUp, 50);
 });
 
 $('.stop').click(function(){
     clearInterval(timePassing);
 });
-// Increase your pet's Hunger, Sleepiness, and Bored metrics on an interval of your choosing.
-// You pet should die if Hunger, Boredom, or Sleepiness hits 10.
+
+$(`.try-again`).click(function(){
+    location.reload();
+})
+
 // Morph your pet at certain ages.
 // Animate your pet across the screen while it's alive.
 
