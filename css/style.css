@@ -1,17 +1,64 @@
-body {
-    font-family: 'Ubuntu Mono', monospace;
+* {
+    font-family: helvetica;
     font-size: 10px;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.tamagotchi-grid {
+    display: inline-grid;
+    padding: 20px;
+    margin: 20px;
+    width: 500px;
+    grid-gap: 20px
+}
+
+.tamagotchi-grid .pet-name {
+    color: black;
+    text-align: center
+}
+
+.tamagotchi-grid .pet-space {
+
+}
+
+.tamagotchi-grid .bars {
+    background-color:#170B0B;
+    color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    text-align: center
+}
+
+
+.tamagotchi-grid .interact {
+    
+}
+
+.tamagotchi-grid .try-again {
+  
+}
+
+#pet {
+    position: relative
+}
+
+header {
+    text-transform: uppercase;
+    font-size: 30px;
+    letter-spacing: 15px;
     text-align: center
 }
 
 h1 {
     text-transform: uppercase;
-    
+    font-size: 10px;
+    text-align: center
 }
 
 input {
     background-color: white; 
-    border: olive 2px solid;
+    border:  #170B0B 2px solid;
     color: black;
     padding: 15px 32px;
     text-align: center;
@@ -21,34 +68,38 @@ input {
     opacity: 1
 }
 
-#submit-btn {
-    background-color: olive; 
+button {
+    background-color: #170B0B; 
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
+    text-transform: uppercase;
     display: inline-block;
     font-size: 10px;
     opacity: 1
 }
 
-.interact button {
-    background-color: olive; 
+#start-button {
+    background-color: #170B0B; 
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
+    text-transform: uppercase;
     display: inline-block;
     font-size: 10px;
     opacity: 1
 }
+
 
 button:hover {
     opacity: 0.6
 }
 
-#submit-btn:hover {
+#start-button:hover {
     opacity: 0.6
 }
+
