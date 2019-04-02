@@ -2,6 +2,7 @@
 
 // NAME YOUR PET
 let name;
+
 $('#start-button').on('click', () => {
     name = $('#input-name').val();
     $('.pet-name').text('');
@@ -13,7 +14,8 @@ $('#start-button').on('click', () => {
         }, 1000, function(){
     console.log("the tamagotchi is born!");
     });
-    moveLeft();
+    
+    if (alive === true) {moveLeft();};
     timePassing = setInterval(secondsGoUp, 500);
 });
    
@@ -21,25 +23,38 @@ $('#start-button').on('click', () => {
 let moveLeft = () => {
     if (alive === true) {
         $('#pet').animate({
-        left: "50%"}, 1000, function(){
-            console.log("move left!");
-            moveRight();
+        left: "-=100"}, 1500, function(){
+            if (alive === true) {moveLeftBack();};
         }
     )};
 };
 
-let moveRight = () => {
+let moveLeftBack = () => {
     if (alive === true) {
         $('#pet').animate({
-            right: "100%"}, 1000, function(){
-                console.log("To the right!");
-                moveLeft();
+            left: "+=100"}, 1500, function(){
+                if (alive === true) {moveRight();};
         });
         };
     };
     
-
+let moveRight = () => {
+    if (alive === true) {
+        $('#pet').animate({
+        left: "+=100"}, 1500, function(){
+            if (alive === true) {moveRightBack();};
+            }
+        )};
+    };
     
+let moveRightBack = () => {
+    if (alive === true) {
+        $('#pet').animate({
+            left: "-=100"}, 1500, function(){
+                if (alive === true) {moveLeft();};
+        });
+        };
+    };
 
 
 let hunger = 0;
@@ -58,8 +73,10 @@ $(`.age`).text(`${age}`);
 $('.feed').on('click', () => {
     console.log("clicked feed");
     if (hunger === 0) {
-        alert("Your pet died from over-eating.");
+        alert(`${name} ate too much and passed into the ghost realm.`);
         alive = false;
+        deadBug();
+
         clearInterval(timePassing);
     } else {
         hunger--;
@@ -74,8 +91,10 @@ $('.feed').on('click', () => {
     //     $('body').css("background-color", "white");
     // }; ==> want to turn off light for two seconds
     if (sleepiness === 0) {
-        alert("Your pet slept too hard and slipped into a permanent coma.");
+        alert(`${name} slept too hard and slipped into a permanent coma.`);
         alive = false;
+        deadBug();
+
         clearInterval(timePassing);
     } else {
         sleepiness--;
@@ -86,8 +105,10 @@ $('.feed').on('click', () => {
 $('.play').on('click', () => {
     console.log("clicked play");
     if (boredom === 0) {
-        alert("Your pet played too hard and its heart exploded.");
+        alert(`${name} played too hard and its lil bug heart exploded.`);
         alive = false;
+        deadBug();
+
         clearInterval(timePassing);
     } else {
         boredom--;
@@ -109,15 +130,19 @@ const secondsGoUp = () => {
     applyAge();
 };
 
-
 // PET NEED FUNCTIONS
 const applyHunger = () => {
     if(seconds % 3 === 0){
         hunger++;
         $('.hunger').text(hunger);
+        if (hunger >= 7){
+            $(`.hunger`).append(`<h2>...(yikes, so hungry)</h2>`)
+        };
         if (hunger >= 10){
-            alert("Died of hunger!");
+            alert(`${name} died of hunger, you monster`);
             alive = false;
+            deadBug();
+
             clearInterval(timePassing);
         };
     };
@@ -127,9 +152,14 @@ const applySleepiness = () => {
     if (seconds % 5 === 0){
         sleepiness++;
         $(`.sleepiness`).text(`${sleepiness}`);
+        if (sleepiness >= 7){
+            $(`.sleepiness`).append(`<h2>...(yikes, so tired)</h2>`)
+        };
         if (sleepiness >= 10){
-            alert("Died of exhaustion!");
+            alert(`${name} died of exhaustion, you monster`);
             alive = false;
+            deadBug();
+
             clearInterval(timePassing);
         };
     };
@@ -139,15 +169,18 @@ const applyBoredom = () => {
     if (seconds % 2 === 0) {
         boredom++;
         $(`.boredom`).text(`${boredom}`);
+        if (boredom >= 7){
+            $(`.boredom`).append(`<h2>...(yikes, so bored)</h2>`)
+        };
         if (boredom >= 10){
-            alert("Died of boredom!");
+            alert(`${name} died of boredom, you monster`);
             alive = false;
+            deadBug();
+
             clearInterval(timePassing);
         };
     };
 };
-
-
 
 const applyAge = () => {
     if (seconds % 20 === 0) {
@@ -160,17 +193,28 @@ const applyAge = () => {
                 }, 1000, function(){
             console.log("the tamagotchi grew up!");
         });
-        if (age >= 5){
+        if (age >= 7){
             alert("Died of old age!");
             alive = false;
+            deadBug();
             clearInterval(timePassing);
         };
     };
 }};
 
+const deadBug = () => {
+    $(`.pet-name`).append("is super dead; nice work")
+    $(`#pet`).replaceWith(`<img id="dead-pet" src="deadladybug.png"/>`);
+    $(`.pet-space`).prepend(`<header>rest in peace,<br>lil bug</header>`);
+    $(`.try-again`).append(`<button type="button" class="try-again">Fresh bug?</button>`);
+    $(`.try-again`).click(function(){
+        location.reload();
+    });
+};
 
 
 // TIME-RELATED FUNCTIONS
+// comment out start and stop for final game
 $('.start').click(function(){
     timePassing = setInterval(secondsGoUp, 500);
 });
@@ -181,9 +225,7 @@ $('.stop').click(function(){
 
 });
 
-$(`.try-again`).click(function(){
-    location.reload();
-});
+
 
 // Morph your pet at certain ages.
 // Animate your pet across the screen while it's alive.
