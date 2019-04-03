@@ -139,7 +139,7 @@ const applyHunger = () => {
             $(`.hunger`).append(`<h2>...(yikes, so hungry)</h2>`)
         };
         if (hunger >= 10){
-            alert(`${name} died of hunger, you monster`);
+            alert(`${name} died of hunger, you monster.`);
             alive = false;
             deadBug();
 
@@ -173,7 +173,7 @@ const applyBoredom = () => {
             $(`.boredom`).append(`<h2>...(yikes, so bored)</h2>`)
         };
         if (boredom >= 10){
-            alert(`${name} died of boredom, you monster`);
+            alert(`${name} died of boredom, you monster.`);
             alive = false;
             deadBug();
 
