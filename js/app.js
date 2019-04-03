@@ -116,8 +116,6 @@ $('.play').on('click', () => {
     };
 });
 
-
-
 let timePassing; 
 let seconds = 0;
 
